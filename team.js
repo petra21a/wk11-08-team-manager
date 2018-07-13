@@ -68,13 +68,45 @@ let getPlayers = function () {
             }
             getPlayers();
         });
+    } else{
+        for (const n of starters){
+            n.printStats();
+        }
+        for (const n of subs){
+            n.printStats();
+        }
     };
-    for (const n of starters){
-        n.printStats();
-    }
-    for (const n of subs){
-        n.printStats();
-    }
+    
 }
 
+
+function playGame(){
+    const num1 =  Math.floor(Math.random()*20)
+    const num2 =  Math.floor(Math.random()*20)
+    let score = 0;
+    if (num1<(players[0].offense+players[1].offense)){
+        score++
+    }
+    if (num1<(players[0].defense+players[1].defense)){
+        score--
+    }
+    console.log(score);
+    inquirer.prompt([
+        {
+            type: 'list',
+            name: "useSub",
+            message: "Who would you like to sub?",
+            choices: [`${players[0].name}`, `${players[0].name}`, "Don't use a sub"]
+        }
+    ]).then(function(answer){
+        if (answer.useSub === "Don't use a sub"){
+
+        } 
+    })
+}
+
+
+
 getPlayers();
+
+
