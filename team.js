@@ -48,14 +48,14 @@ let getPlayers = function () {
                 type: 'list',
                 name: "playDef",
                 message: "What is the player's defensive amount?",
-                choices: ['0','1','2','3','4','5','6','7','8','9','10']
+                choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
             },
             {
                 type: 'list',
                 name: "playOff",
                 message: "What is the player's offensive amount?",
-                choices: ['0','1','2','3','4','5','6','7','8','9','10']
-            
+                choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+
             }
         ]).then(function (answers) {
 
@@ -68,50 +68,57 @@ let getPlayers = function () {
             }
             getPlayers();
         });
-    } else{
-        for (const n of starters){
+    } else {
+        for (const n of starters) {
             n.printStats();
         }
-        for (const n of subs){
+        for (const n of subs) {
             n.printStats();
         }
+        playGame();
     };
-    
+
 }
 
+let rounds = 0;
+function playGame() {
 
-function playGame(){
-    
-    
 
-    const num1 =  Math.floor(Math.random()*20)
-    const num2 =  Math.floor(Math.random()*20)
-    let score = 0;
-    if (num1<(players[0].offense+players[1].offense)){
-        score++
-    }
-    if (num1<(players[0].defense+players[1].defense)){
-        score--
-    }
-    console.log(score);
-    inquirer.prompt([
-        {
-            type: 'list',
-            name: "useSub",
-            message: "Who would you like to sub?",
-            choices: [`${players[0].name}`, `${players[1].name}`, "Don't use a sub"]
+    if (rounds < 5) {
+        const num1 = Math.floor(Math.random() * 20)
+        const num2 = Math.floor(Math.random() * 20)
+        let score = 0;
+        if (num1 < (starters[0].offense + starters[1].offense)) {
+            score++
         }
-    ]).then(function(answer){
-        if (answer.useSub === "Don't use a sub"){
-        
-        } 
-        console.log(answer.useSub)
-    })
-    
+        if (num1 < (starters[0].defense + starters[1].defense)) {
+            score--
+        }
+        console.log(score);
+        inquirer.prompt([
+            {
+                type: 'list',
+                name: "useSub",
+                message: "Who would you like to sub?",
+                choices: [`${starters[0].name}`, `${starters[1].name}`, "noSub"]
+            }
+        ]).then(function (answer) {
+            if (answer.useSub === "Don't use a sub") {
+
+            }
+            console.log(answer.useSub)
+        })
+        rounds++;
+        playGame();
+    }
+
+
+
+
 }
 
 
 getPlayers();
 
-playGame();
+
 
