@@ -81,6 +81,9 @@ let getPlayers = function () {
 
 
 function playGame(){
+    
+    
+
     const num1 =  Math.floor(Math.random()*20)
     const num2 =  Math.floor(Math.random()*20)
     let score = 0;
@@ -96,17 +99,19 @@ function playGame(){
             type: 'list',
             name: "useSub",
             message: "Who would you like to sub?",
-            choices: [`${players[0].name}`, `${players[0].name}`, "Don't use a sub"]
+            choices: [`${players[0].name}`, `${players[1].name}`, "Don't use a sub"]
         }
     ]).then(function(answer){
         if (answer.useSub === "Don't use a sub"){
-
+        
         } 
+        console.log(answer.useSub)
     })
+    
 }
-
 
 
 getPlayers();
 
+playGame();
 
