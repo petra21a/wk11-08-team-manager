@@ -31,36 +31,50 @@ function Player(name, position, offense, defense) {
 };
 
 let starters = [];
-let sub = [];
+let subs = [];
 
-inquirer.prompt([
-    {
-        name: "playerName",
-        message: "What is the player's name?"
-    },
-    {
-        name: "playPos",
-        message: "What is the player's position?"
-    },
-    {
-        name: "playPos",
-        message: "What is the player's position?"
-    },
-    {
-        type: 'list',
-        name: "playDef",
-        message: "What is the player's defensive amount?",
-        choices: [0,1,2,3,4,5,6,7,8,9,10]
-    },
-    {
-        type: 'list',
-        name: "playOff",
-        message: "What is the player's offensive amount?",
-        choices: [0,1,2,3,4,5,6,7,8,9,10]
+let getPlayers = function () {
+    if (starters.length + subs.length < 3) {
+        inquirer.prompt([
+            {
+                name: "playerName",
+                message: "What is the player's name?"
+            },
+            {
+                name: "playPos",
+                message: "What is the player's position?"
+            },
+            {
+                type: 'list',
+                name: "playDef",
+                message: "What is the player's defensive amount?",
+                choices: ['0','1','2','3','4','5','6','7','8','9','10']
+            },
+            {
+                type: 'list',
+                name: "playOff",
+                message: "What is the player's offensive amount?",
+                choices: ['0','1','2','3','4','5','6','7','8','9','10']
+            
+            }
+        ]).then(function (answers) {
+
+            let newPlayer = new Player(answers.playerName, answers.playPos, answers.playOff, answers.playDef);
+            if (starters.length < 2) {
+                starters.push(newPlayer);
+
+            } else {
+                subs.push(newPlayer);
+            }
+            getPlayers();
+        });
+    };
+    for (const n of starters){
+        n.printStats();
     }
-]).then(function(answers){
-
-
-    const newPlayer = new  
-})
+    for (const n of subs){
+        n.printStats();
+    }
 }
+
+getPlayers();
